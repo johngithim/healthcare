@@ -1,11 +1,21 @@
-const express = require("express")
-const app = express()
+const express = require('express');
+const dotenv = require('dotenv');
+const authRoutes = require('./routes/auth');
+const authMiddleware = require('./authMiddleware');
 
-app.use(express.json())
+dotenv.config();
+const app = express();
 
-app.get("/", (req, res) => {
-    res.send("Server Working!")
-})
+app.use(express.json());
 
-app.listen(3000)
-console.log("Server listening on http://localhost:3000")
+// Public routes
+app.use('/api/auth', authRoutes);
+
+// Protected route example
+app.get('/api/profile', authMiddleware, (req, res) => {
+  res.json({ message: 'You are authenticated', userId: req.userId });
+});
+
+app.listen(3000, () => {
+  console.log(`Server running on port 3000`);
+});

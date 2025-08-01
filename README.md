@@ -1,3 +1,4 @@
+# Group 2 - Healthcare project
 1. ### Overview
     **Short Description**
     - This app allows patients to gain access to available doctors based on their preference, solving the problem of poor medical access to some people and lack of medical history for the patients.
