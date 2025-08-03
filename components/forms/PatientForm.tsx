@@ -3,52 +3,36 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import CustomFormField from "@/components/CustomFormField";
-import SubmitButton from "@/components/SubmitButton";
-import { useState } from "react";
-import { UserFormValidation } from "@/lib/validation";
-import { useRouter } from "next/navigation";
-import { createUser } from "@/lib/actions/patient.actions";
 
 export enum FormFieldType {
-  INPUT = "input",
-  TEXTAREA = "textarea",
-  CHECKBOX = "checkbox",
-  PHONE_INPUT = "phoneInput",
-  DATE_PICKER = "datePicker",
-  SELECT = "select",
-  SKELETON = "skeleton",
+    INPUT = 'input',
+    TEXTAREA = 'textarea',
+    CHECKBOX = 'checkbox',
+    PHONE_INPUT = 'phoneInput',
+    DATE_PICKER = 'datePicker',
+    SELECT = 'select',
+    SKELETON = 'skeleton',
+
+
 }
 
+const formSchema = z.object({
+  username: z.string().min(2).max(50),
+});
+
 const PatientForm = () => {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const form = useForm<z.infer<typeof UserFormValidation>>({
-    resolver: zodResolver(UserFormValidation),
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
+      username: "",
     },
   });
 
-  async function onSubmit({
-    name,
-    email,
-    phone,
-  }: z.infer<typeof UserFormValidation>) {
-    setIsLoading(true);
-
-    try {
-      const userData = { name, email, phone };
-
-      const user = await createUser(userData);
-
-      if (user) router.push(`/patients/${user.$id}/register`);
-    } catch (error) {
-      console.log(error);
-    }
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
   }
   return (
     <Form {...form}>
@@ -59,32 +43,32 @@ const PatientForm = () => {
         </section>
 
         <CustomFormField
-          fieldType={FormFieldType.INPUT}
-          control={form.control}
-          name={"name"}
-          label={"Full name"}
-          placeholder={"JohnDoe"}
-          iconSrc={"/assets/icons/user.svg"}
-          iconAlt={"user"}
+            fieldType={FormFieldType.INPUT}
+            control={form.control}
+            name={"name"}
+            label={"Full name"}
+            placeholder={"JohnDoe"}
+            iconSrc={"/assets/icons/user.svg"}
+            iconAlt={"user"}
         />
-        <CustomFormField
-          fieldType={FormFieldType.INPUT}
-          control={form.control}
-          name={"email"}
-          label={"Email"}
-          placeholder={"johndoe@gmail.com"}
-          iconSrc={"/assets/icons/email.svg"}
-          iconAlt={"email"}
+          <CustomFormField
+            fieldType={FormFieldType.INPUT}
+            control={form.control}
+            name={"email"}
+            label={"Email"}
+            placeholder={"johndoe@gmail.com"}
+            iconSrc={"/assets/icons/email.svg"}
+            iconAlt={"email"}
         />
-        <CustomFormField
-          fieldType={FormFieldType.PHONE_INPUT}
-          control={form.control}
-          name={"phone"}
-          label={"Phone"}
-          placeholder={"+251 9 543 421"}
+          <CustomFormField
+            fieldType={FormFieldType.PHONE_INPUT}
+            control={form.control}
+            name={"phone"}
+            label={"Phone"}
+            placeholder={"+251 9 543 421"}
         />
 
-        <SubmitButton>Get started</SubmitButton>
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );
