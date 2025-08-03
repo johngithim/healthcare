@@ -1,0 +1,15 @@
+http://localhost:3000/api/auth/doctor/register
+Content-Type: application/json
+
+{
+    "firstname": "FirstName",
+    "lastname": "LastName",
+    "email": "email",
+    "age": 34,
+    "phoneno": 09123456789,
+    "address": "adress",
+    "speciality": "speciality",
+    "telegram": "telegram",
+    "whatsapp": "whatsapp",
+    "password": "pass"
+}

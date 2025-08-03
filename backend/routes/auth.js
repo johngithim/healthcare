@@ -6,13 +6,13 @@ const pool = require('../config/db');
 const router = express.Router();
 
 // Register
-router.post('/register', async (req, res) => {
-  const { email, password } = req.body;
+router.post('/doctor/register', async (req, res) => {
+  const { firstname, lastname, email, age, phoneno, address, speciality, telegram, whatsapp, password  } = req.body;
 
   const hashed = await bcrypt.hash(password, 10);
 
   try {
-    await pool.query('INSERT INTO users (email, password) VALUES (?, ?)', [email, hashed]);
+    await pool.query('INSERT INTO doctor (firstname, lastname, email, age, phoneno, adress, speciality, telegram, whatsapp, password) VALUES (?, ?)', [firstname, lastname, email, age, phoneno, address, speciality, telegram, whatsapp, hashed]);
     res.status(201).json({ message: 'User registered' });
   } catch (err) {
     res.status(500).json({ error: 'Email already exists or DB error' });
@@ -20,10 +20,10 @@ router.post('/register', async (req, res) => {
 });
 
 // Login
-router.post('/login', async (req, res) => {
+router.post('doctor/login', async (req, res) => {
   const { email, password } = req.body;
 
-  const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+  const [rows] = await pool.query('SELECT * FROM doctor WHERE email = ?', [email]);
 
   if (rows.length === 0) return res.status(401).json({ message: 'Invalid credentials' });
 
