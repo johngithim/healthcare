@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const pool = require('../config/db');
+const { verifyToken } = require('../middlewares/auth');
 
 const router = express.Router();
 
@@ -24,7 +25,7 @@ router.post('/doctor/register', async (req, res) => {
       return res.status(400).json({ message: 'Email already exists for a patient' });
     }
 
-    
+
     await pool.query(
       'INSERT INTO doctor (firstname, lastname, email, age, phoneno, adress, speciality, telegram, whatsapp, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [firstname, lastname, email, age, phoneno, address, speciality, telegram, whatsapp, hashed]
@@ -60,6 +61,60 @@ const token = jwt.sign(
 );
   
   res.json({ token });
+});
+
+// Edit Profile for doctors
+router.put('/doctor/profile', verifyToken, async (req, res) => {
+  const doctorId = req.user.id;
+  const fields = req.body;
+
+  if (!doctorId) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+
+  try {
+    const [existing] = await pool.query('SELECT * FROM doctor WHERE id = ?', [doctorId]);
+
+    if (existing.length === 0) {
+      return res.status(404).json({ message: 'Doctor not found' });
+    }
+
+    const current = existing[0];
+
+    // Use new values if provided, otherwise keep the old ones
+    const updatedDoctor = {
+      firstname: fields.firstname || current.firstname,
+      lastname: fields.lastname || current.lastname,
+      age: fields.age || current.age,
+      phoneno: fields.phoneno || current.phoneno,
+      adress: fields.adress || current.adress,
+      speciality: fields.speciality || current.speciality,
+      telegram: fields.telegram || current.telegram,
+      whatsapp: fields.whatsapp || current.whatsapp
+    };
+
+    // Perform the update
+    await pool.query(
+      `UPDATE doctor SET firstname = ?, lastname = ?, age = ?, phoneno = ?, adress = ?, speciality = ?, telegram = ?, whatsapp = ? WHERE id = ?`,
+      [
+        updatedDoctor.firstname,
+        updatedDoctor.lastname,
+        updatedDoctor.age,
+        updatedDoctor.phoneno,
+        updatedDoctor.adress,
+        updatedDoctor.speciality,
+        updatedDoctor.telegram,
+        updatedDoctor.whatsapp,
+        doctorId
+      ]
+    );
+
+    res.status(200).json({ message: 'Doctor profile updated successfully' });
+
+  } catch (err) {
+    console.error('Error updating profile:', err);
+    res.status(500).json({ message: 'Database update failed', error: err.message });
+  }
 });
 
 module.exports = router;

@@ -31,9 +31,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiO
 
 ### Protected Route Request for Doctor Profile
 GET http://localhost:3000/doctor/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJuYXRoYW55aWRuZWthY2hldzM4M0BnbWFpbC5jb20iLCJpYXQiOjE3NTQyMTExMDEsImV4cCI6MTc1NDIxNDcwMX0.Yw4ddzrw-vO_aQQ74WKuKmkjvMz1y6R9w22rAjTIhNg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJuYXRoYW55aWRuZWthY2hldzM4M0BnbWFpbC5jb20iLCJpYXQiOjE3NTQyMjg3NTIsImV4cCI6MTc1NDIzMjM1Mn0.kj7HZtKQvkH90ZrEDWUtpgMfhCb72yxUDyukdWoh_RA
 
 
 ### Protected Route Request for Patient Profile
 GET http://localhost:3000/patient/profile
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJuYXRoYW55aWRuZWthY2hldzM4M0BnbWFpbC5jb20iLCJpYXQiOjE3NTQyMTExMDEsImV4cCI6MTc1NDIxNDcwMX0.Yw4ddzrw-vO_aQQ74WKuKmkjvMz1y6R9w22rAjTIhNg
+
+
+### Profile Edition for Doctor
+PUT http://localhost:3000/api/auth/doctor/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJuYXRoYW55aWRuZWthY2hldzM4M0BnbWFpbC5jb20iLCJpYXQiOjE3NTQyMzA0MTEsImV4cCI6MTc1NDIzNDAxMX0.cwTmIUVLT4S6NnZKvHEnM7rvQTM71jgZIEgIL_Bwct8
+Content-Type: application/json
+
+{
+    "firstname": "Nate",
+    "lastname": "Yidne"
+}
