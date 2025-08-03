@@ -12,7 +12,11 @@ router.post('/doctor/register', async (req, res) => {
   const hashed = await bcrypt.hash(password, 10);
 
   try {
-    await pool.query('INSERT INTO doctor (firstname, lastname, email, age, phoneno, adress, speciality, telegram, whatsapp, password) VALUES (?, ?)', [firstname, lastname, email, age, phoneno, address, speciality, telegram, whatsapp, hashed]);
+    await pool.query(
+      'INSERT INTO doctor (firstname, lastname, email, age, phoneno, adress, speciality, telegram, whatsapp, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [firstname, lastname, email, age, phoneno, address, speciality, telegram, whatsapp, hashed]
+    );
+    
     res.status(201).json({ message: 'User registered' });
   } catch (err) {
     res.status(500).json({ error: 'Email already exists or DB error' });
