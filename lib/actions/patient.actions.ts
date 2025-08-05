@@ -11,7 +11,6 @@ import {
   storage,
   users,
 } from "@/lib/appwrite.config";
-import { parseStringify } from "../utils";
 import { InputFile } from "node-appwrite/file";
 
 export const createUser = async (user: CreateUserParams) => {
