@@ -3,13 +3,13 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import CustomFormField from "@/components/CustomFormField";
-import SubmitButton from "@/components/SubmitButton";
-import { useState } from "react";
 import { UserFormValidation } from "@/lib/validation";
-import { useRouter } from "next/navigation";
 import { createUser } from "@/lib/actions/patient.actions";
+import { useState } from "react";
+import { router } from "next/navigation";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -21,15 +21,16 @@ export enum FormFieldType {
   SKELETON = "skeleton",
 }
 
+const formSchema = z.object({
+  username: z.string().min(2).max(50),
+});
+
 const PatientForm = () => {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const form = useForm<z.infer<typeof UserFormValidation>>({
-    resolver: zodResolver(UserFormValidation),
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
+      username: "",
     },
   });
 
@@ -84,7 +85,7 @@ const PatientForm = () => {
           placeholder={"+251 9 543 421"}
         />
 
-        <SubmitButton>Get started</SubmitButton>
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );
