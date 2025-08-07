@@ -7,7 +7,10 @@ import { Form } from "@/components/ui/form";
 import CustomFormField from "@/components/CustomFormField";
 import SubmitButton from "@/components/SubmitButton";
 import { useState } from "react";
-import { getAppointmentSchema } from "@/lib/validation";
+import {
+  AppointmentFormValidation,
+  getAppointmentSchema,
+} from "@/lib/validation";
 import { useRouter } from "next/navigation";
 import { FormFieldType } from "@/components/forms/PatientForm";
 import { Doctors } from "@/constants";
@@ -26,15 +29,12 @@ const AppointmentForm = ({
 }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-
-  const AppointmentFormValidation = getAppointmentSchema();
-
+  const AppointmentFormValidation = getAppointmentSchema(type);
   const form = useForm<z.infer<typeof AppointmentFormValidation>>({
     resolver: zodResolver(AppointmentFormValidation),
     defaultValues: {
       primaryPhysician: "",
       schedule: new Date(),
-      reason: "",
       note: "",
       cancellationReason: "",
     },
@@ -55,9 +55,10 @@ const AppointmentForm = ({
         status = "pending";
         break;
     }
-
     try {
       if (type === "create" && patientId) {
+        console.log("I'M HERE!!");
+
         const appointmentData = {
           userId,
           patient: patientId,
@@ -69,40 +70,45 @@ const AppointmentForm = ({
         };
         const appointment = await createAppointment(appointmentData);
 
+        console.log(appointment);
+
         if (appointment) {
           form.reset();
           router.push(
-            `/patients/${userId}/new-appointment/success?appointmentId=${appointment.id}`,
+            `new-appointment/success?appointmentId=${appointment.$id}`,
           );
         }
       }
     } catch (error) {
-      console.log(error, "can't submit the appointment");
+      console.log(error);
     }
+
+    setIsLoading(false);
   }
 
   let buttonLabel;
 
   switch (type) {
     case "cancel":
-      buttonLabel = "Cancel Appointment";
+      buttonLabel = "cancel Appointment";
       break;
     case "create":
       buttonLabel = "Create appointment";
       break;
     case "schedule":
-      buttonLabel = "Schedule appointment";
+      buttonLabel = "Schedule Appointment";
       break;
     default:
       break;
   }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 flex-1">
         <section className={"mb-12 space-y-4"}>
-          <h1 className={"header"}>New Appointment</h1>
+          <h1 className={"header"}>New appointment</h1>
           <p className={"text-dark-700"}>
-            Request a new appointment in 10 seconds
+            Request a new appointment in less than 1 minutes
           </p>
         </section>
 
@@ -132,25 +138,25 @@ const AppointmentForm = ({
             </CustomFormField>
 
             <CustomFormField
-              fieldType={FormFieldType.DATE_PICKER}
               control={form.control}
+              fieldType={FormFieldType.DATE_PICKER}
               name={"schedule"}
-              label={"expected appointment date"}
+              label={"Expected appointment date"}
               showTimeSelect
               dateFormat={"MM/dd/yyyy - h:mm aa"}
             />
-
             <div className={"flex flex-col gap-6 xl:flex-row"}>
               <CustomFormField
-                fieldType={FormFieldType.TEXTAREA}
                 control={form.control}
+                fieldType={FormFieldType.TEXTAREA}
                 name={"reason"}
-                label={"Reason for appointment"}
+                label={"Reason"}
                 placeholder={"Enter reason for appointment"}
               />
+
               <CustomFormField
-                fieldType={FormFieldType.TEXTAREA}
                 control={form.control}
+                fieldType={FormFieldType.TEXTAREA}
                 name={"note"}
                 label={"Notes"}
                 placeholder={"Enter notes"}
@@ -168,7 +174,6 @@ const AppointmentForm = ({
             placeholder={"Enter reason for cancellation"}
           />
         )}
-
         <SubmitButton
           isLoading={isLoading}
           className={`${type === "cancel" ? "shad-danger-btn" : "shad-primary-btn"} w-full`}
