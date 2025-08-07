@@ -1,3 +1,4 @@
+"use client";
 const AppointmentForm = () => {
   return <div>AppointmentForm</div>;
 };

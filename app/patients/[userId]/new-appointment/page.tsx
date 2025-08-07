@@ -1,6 +1,7 @@
+import React from "react";
 import AppointmentForm from "@/components/forms/AppointmentForm";
 
-const Page = () => {
+const Appointment = () => {
   return <AppointmentForm />;
 };
-export default Page;
+export default Appointment;
