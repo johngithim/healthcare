@@ -1,16 +1,4 @@
-#Add this file to the root of your directory
 
-## .env.local IMPORTANT
-PROJECT_ID=688d80ce000601488a3a
-API_KEY=standard_31f9aebc8eed888da5ad63f7b9da75cacfcdba2c1517e6c7a6d1fffc8ce307b91833a448565264db3fa9df2eeb7c7d89ed69cab54e7b83dbeb03a906f244c8c38136a13d7199a0a7b778f09dd7bf556ab862cf9ea423fb9c1581d00341953f875336f7b9e722c45d1784b025a0d6ccef7ee62276a7d25c8b28f71c8786c97ba7
-DATABASE_ID=688d81930009e14c8201
-PATIENT_COLLECTION_ID=688d81c20009f16daf4f
-DOCTOR_COLLECTION_ID=688d81e7002d72541d61
-APPOINTMENT_COLLECTION_ID=688d83860039aa6e9f0e
-NEXT_PUBLIC_BUCKET_ID=688d83c50008c4d7c137
-NEXT_PUBLIC_ENDPOINT=https://cloud.appwrite.io/v1
-
-<<<<<<< backend-natan-yidnekachew
 # Group 2 - Healthcare project
 1. ### Overview
     **Short Description**
@@ -71,16 +59,4 @@ NEXT_PUBLIC_ENDPOINT=https://cloud.appwrite.io/v1
     - Patient detail and medical history for the patient
         - The doctor can add medical history
     - Details page for the preferred doctor by the patient
-   ======
-#Add this file to the root of your directory
 
-## .env.local IMPORTANT
-PROJECT_ID=688d80ce000601488a3a
-API_KEY=standard_31f9aebc8eed888da5ad63f7b9da75cacfcdba2c1517e6c7a6d1fffc8ce307b91833a448565264db3fa9df2eeb7c7d89ed69cab54e7b83dbeb03a906f244c8c38136a13d7199a0a7b778f09dd7bf556ab862cf9ea423fb9c1581d00341953f875336f7b9e722c45d1784b025a0d6ccef7ee62276a7d25c8b28f71c8786c97ba7
-DATABASE_ID=688d81930009e14c8201
-PATIENT_COLLECTION_ID=688d81c20009f16daf4f
-DOCTOR_COLLECTION_ID=688d81e7002d72541d61
-APPOINTMENT_COLLECTION_ID=688d83860039aa6e9f0e
-NEXT_PUBLIC_BUCKET_ID=688d83c50008c4d7c137
-NEXT_PUBLIC_ENDPOINT=https://cloud.appwrite.io/v1
->>>>>>> master
