@@ -32,5 +32,3 @@ const SubmitButton = ({ isLoading, className, children }: ButtonProps) => {
   );
 };
 export default SubmitButton;
-
-//want to make it the same with maser

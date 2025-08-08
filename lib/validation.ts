@@ -21,7 +21,7 @@ export const PatientFormValidation = z.object({
     .string()
     .refine((phone) => /^\+\d{10,15}$/.test(phone), "Invalid phone number"),
   birthDate: z.coerce.date(),
-  gender: z.enum(["male", "female", "other"]),
+  gender: z.enum(["Male", "Female", "Other"]),
   address: z
     .string()
     .min(5, "Address must be at least 5 characters")
@@ -49,13 +49,13 @@ export const PatientFormValidation = z.object({
     .string()
     .min(2, "Policy number must be at least 2 characters")
     .max(50, "Policy number must be at most 50 characters"),
-  allergies: z.string(),
-  currentMedication: z.string(),
-  familyMedicalHistory: z.string(),
-  pastMedicalHistory: z.string(),
-  identificationType: z.string(),
-  identificationNumber: z.string(),
-  identificationDocument: z.custom<File[]>(),
+  allergies: z.string().optional(),
+  currentMedication: z.string().optional(),
+  familyMedicalHistory: z.string().optional(),
+  pastMedicalHistory: z.string().optional(),
+  identificationType: z.string().optional(),
+  identificationNumber: z.string().optional(),
+  identificationDocument: z.custom<File[]>().optional(),
   treatmentConsent: z
     .boolean()
     .default(false)
@@ -86,3 +86,33 @@ export const CreateAppointmentSchema = z.object({
   note: z.string().optional(),
   cancellationReason: z.string().optional(),
 });
+
+export const ScheduleAppointmentSchema = z.object({
+  primaryPhysician: z.string().min(2, "Select at least one doctor"),
+  schedule: z.coerce.date(),
+  reason: z.string().optional(),
+  note: z.string().optional(),
+  cancellationReason: z.string().optional(),
+});
+
+export const CancelAppointmentSchema = z.object({
+  primaryPhysician: z.string().min(2, "Select at least one doctor"),
+  schedule: z.coerce.date(),
+  reason: z.string().optional(),
+  note: z.string().optional(),
+  cancellationReason: z
+    .string()
+    .min(2, "Reason must be at least 2 characters")
+    .max(500, "Reason must be at most 500 characters"),
+});
+
+export function getAppointmentSchema(type: string) {
+  switch (type) {
+    case "create":
+      return CreateAppointmentSchema;
+    case "cancel":
+      return CancelAppointmentSchema;
+    default:
+      return ScheduleAppointmentSchema;
+  }
+}
