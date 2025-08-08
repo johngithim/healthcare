@@ -45,6 +45,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiO
 Content-Type: application/json
 
 {
-    "firstname": "Nate",
-    "lastname": "Yidne"
+
 }
