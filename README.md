@@ -1,86 +1,92 @@
-#Add this file to the root of your directory
+# PulseCare – Project Documentation
 
-## .env.local IMPORTANT
-PROJECT_ID=688d80ce000601488a3a
-API_KEY=standard_31f9aebc8eed888da5ad63f7b9da75cacfcdba2c1517e6c7a6d1fffc8ce307b91833a448565264db3fa9df2eeb7c7d89ed69cab54e7b83dbeb03a906f244c8c38136a13d7199a0a7b778f09dd7bf556ab862cf9ea423fb9c1581d00341953f875336f7b9e722c45d1784b025a0d6ccef7ee62276a7d25c8b28f71c8786c97ba7
-DATABASE_ID=688d81930009e14c8201
-PATIENT_COLLECTION_ID=688d81c20009f16daf4f
-DOCTOR_COLLECTION_ID=688d81e7002d72541d61
-APPOINTMENT_COLLECTION_ID=688d83860039aa6e9f0e
-NEXT_PUBLIC_BUCKET_ID=688d83c50008c4d7c137
-NEXT_PUBLIC_ENDPOINT=https://cloud.appwrite.io/v1
+## 1. Overview
 
-<<<<<<< backend-natan-yidnekachew
-# Group 2 - Healthcare project
-1. ### Overview
-    **Short Description**
-    - This app allows patients to gain access to available doctors based on their preference, solving the problem of poor medical access to some people and lack of medical history for the patients.
-    **Key Features**
-    - Pairing patients with specialized doctors
-    - Keeping medical history accessible for all doctors
-    - Allowing patients to find doctors they prefer
-    **Tech Stack**
-    - Front-End: Next.js, Tailwind
-    - Back-End: Node.js, MySQL
-    **Target Audience / Users**
-    - People who don’t have local access to doctors
-    - Doctors who need medical history on patients
-    **Link to Live Demo / Repo**
-    - https://github.com/johngithim/healthcare
-2. ### Basic User Workflow
-    **Patient**
-    - Patient authentication
-    - List of doctors (filterable by specialty)
-    - Get’s the doctors contact info
-    - After the treatment the doctor writes a medical history for the patient
-    **Doctor**
-    - Creates a profile
-    - Specifies his/her specialty
-    - Gets a list of patients (searchable)
-    - Gets access to the patient’s history
-    - Gets to add to the patient’s medical history 
+### Project Name
+**PulseCare**
 
-3. ### Modules
-    **Authentication System**
-    - Profile creation for patient
-    - Profile creation for doctor
-    - Profile edition for patient
-    - Profile edition for doctor
-    - Profile deletion for patient
-    - Profile deletion for doctor
-    **Views**
-    - Listing and filtering doctors
-    - Retrieve data from the doctor’s table and list
-    - Filter by specialty
-    - Doctor searches the patient and review’s patient history
-    - Get the specialties, contact info and other details of the chosen doctor
-    **Edit**
-    - Doctor goes to the patient’s profile and adds to the medical history
-4. ### Pages (Front-End)
-    **Authentication System**
-    - Register Page
-    - Login Page
-    **Profile**
-    - View profile
-    - Edit profile
-    **Views**
-    - Doctors Listing page  
-        - Filtering the doctors
-    - Patients listing page (only visible to the doctors)
-        - With a searching functionality
-    - Patient detail and medical history for the patient
-        - The doctor can add medical history
-    - Details page for the preferred doctor by the patient
-   ======
-#Add this file to the root of your directory
+### Short Description
+PulseCare is a secure, internal-only medical history management platform for an approved hospital.  
+It provides a centralized database for storing and managing patient medical histories.  
+A Super Admin approves the hospital account, and the approved hospital can read, add, and update records through both a web dashboard and a secure API.
 
-## .env.local IMPORTANT
-PROJECT_ID=688d80ce000601488a3a
-API_KEY=standard_31f9aebc8eed888da5ad63f7b9da75cacfcdba2c1517e6c7a6d1fffc8ce307b91833a448565264db3fa9df2eeb7c7d89ed69cab54e7b83dbeb03a906f244c8c38136a13d7199a0a7b778f09dd7bf556ab862cf9ea423fb9c1581d00341953f875336f7b9e722c45d1784b025a0d6ccef7ee62276a7d25c8b28f71c8786c97ba7
-DATABASE_ID=688d81930009e14c8201
-PATIENT_COLLECTION_ID=688d81c20009f16daf4f
-DOCTOR_COLLECTION_ID=688d81e7002d72541d61
-APPOINTMENT_COLLECTION_ID=688d83860039aa6e9f0e
-NEXT_PUBLIC_BUCKET_ID=688d83c50008c4d7c137
-NEXT_PUBLIC_ENDPOINT=https://cloud.appwrite.io/v1
->>>>>>> master
+### Key Features
+- Centralized medical history database
+- Approved hospital profile with full read/write access
+- Super Admin approval process for hospital account creation
+- Secure API for hospital system integration
+- Encrypted data storage and communication
+
+### Tech Stack
+- **Front-End:** Next.js (TypeScript), Tailwind CSS
+- **Back-End:** Node.js, Express.js
+- **Database:** MySQL 
+- **Authentication:** Firebase Authentication (Google login)
+- **API:** RESTful API (JSON)
+- **Security:** HTTPS, JWT tokens, Data encryption
+
+### Stakeholders / Users
+- **Super Admin** – Approves hospital account, manages system settings, and oversees activity.
+- **Hospital** – Single approved profile with full read/write access to patient records and API.
+
+---
+
+## 2. Basic User Workflow
+
+1. **Hospital Registration Request**  
+   - Hospital submits registration form with credentials.
+2. **Super Admin Approval**  
+   - Super Admin verifies and approves the request.
+3. **Account Activation**  
+   - Hospital receives login credentials.
+4. **Medical History Management**  
+   - Hospital can search, add, and update patient records.
+5. **API Integration**  
+   - Hospital uses API to access and manage patient data.
+
+---
+
+## 3. Modules
+
+### Super Admin Module
+- Approve/reject hospital account
+- Manage system-wide settings
+- View audit logs
+
+### Hospital Module
+- Manage hospital profile
+- Search patients
+- Add/update patient medical records
+- Access API keys for integration
+
+### Patient Records Module
+- Search patients by ID or name
+- View complete medical history
+- Add/update records with hospital and date tags
+
+### API Module
+- REST API for access hospital access
+- Authentication via API keys & JWT
+- Endpoints for:
+  - GET patient history
+  - POST new medical record
+  - PUT update existing record
+
+---
+
+## 4. Pages (Front-End)
+
+### Authentication
+- **Login Page** – Firebase Google login
+- **Hospital Registration Page** – Form to request access
+
+### Super Admin Dashboard
+- Pending Approvals Page
+- Full paitent's list
+
+### Hospital Dashboard
+- Hospital Profile Page
+- Patient Search Page
+- Patient Details Page
+- Add/Update Medical Record Page
+- API Key Management Page

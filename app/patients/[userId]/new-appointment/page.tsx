@@ -21,6 +21,7 @@ export default async function NewAppointment({
             userId={userId}
             patientId={patient?.$id}
             type={"create"}
+            setOpen={false}
           />
           <p className={"copyright mt-10 py-1"}>©copyright carepulse</p>
         </div>
