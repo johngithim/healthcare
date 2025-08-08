@@ -12,6 +12,7 @@ import {
   users,
 } from "@/lib/appwrite.config";
 import { InputFile } from "node-appwrite/file";
+import { parseStringify } from "@/lib/utils";
 
 export const createUser = async (user: CreateUserParams) => {
   try {
@@ -65,9 +66,9 @@ export const registerPatient = async ({
         ...patient,
       },
     );
+    parseStringify(newPatient);
   } catch (error) {
     console.log(error, "Failed to register the patient");
-    return false;
   }
 };
 export const getPatient = async (userId: string) => {
