@@ -23,6 +23,8 @@ export const createUser = async (user: CreateUserParams) => {
       undefined,
       user.name,
     );
+
+    return parseStringify(newUser);
   } catch (error: any) {
     if (error && error?.code === 409) {
       const documents = await users.list([Query.equal("email", [user.email])]);
@@ -66,7 +68,7 @@ export const registerPatient = async ({
         ...patient,
       },
     );
-    parseStringify(newPatient);
+    return parseStringify(newPatient);
   } catch (error) {
     console.log(error, "Failed to register the patient");
   }
