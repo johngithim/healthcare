@@ -66,7 +66,8 @@ export const registerPatient = async ({
       },
     );
   } catch (error) {
-    console.log(error, "Failed to Upload the file");
+    console.log(error, "Failed to register the patient");
+    return false;
   }
 };
 export const getPatient = async (userId: string) => {
